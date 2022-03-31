@@ -125,8 +125,8 @@ def main():
     topic_b = st.sidebar.selectbox('Select a topic B', topics)
 
     cutoff = st.sidebar.slider('Cutoff', 0, 10, 5)
-
-    if _paths := list(nx.all_simple_paths(G, topic_a, topic_b, cutoff=cutoff)):
+    _paths = list(nx.all_simple_paths(G, topic_a, topic_b, cutoff=cutoff))
+    if _paths:
         render_stats(_paths)
         render_paths(_paths, topic_a, topic_b)
         if st.button("Show all paths"):
