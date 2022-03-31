@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 800px;
+            height: 400px;
+            background-color: #000000;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "#ffffff"}, "id": "Weaponizing Interdependence-keyissue", "label": "Weaponizing Interdependence-keyissue", "shape": "dot", "size": 10}, {"color": "green", "font": {"color": "#ffffff", "size": 15}, "id": "Emerging-Market Multinationals", "label": "Emerging-Market Multinationals", "shape": "dot", "size": 20}, {"font": {"color": "#ffffff"}, "id": "Long-Term Vision, Short-Term Needs-keyissue", "label": "Long-Term Vision, Short-Term Needs-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Banking and Capital Markets", "label": "Banking and Capital Markets", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Corruption", "label": "Corruption", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Institutional Investors", "label": "Institutional Investors", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Future of the Environment", "label": "Future of the Environment", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Banking and Market Demand Shifts-keyissue", "label": "Banking and Market Demand Shifts-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Corporate Risk Management-keyissue", "label": "Corporate Risk Management-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Insurance", "label": "Insurance", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Financial and Monetary Systems", "label": "Financial and Monetary Systems", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Civic Participation", "label": "Civic Participation", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Development Finance", "label": "Development Finance", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "International Security", "label": "International Security", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Insurtech-keyissue", "label": "Insurtech-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Thematic Investment-keyissue", "label": "Thematic Investment-keyissue", "shape": "dot", "size": 10}, {"color": "red", "font": {"color": "#ffffff", "size": 15}, "id": "Corporate Governance", "label": "Corporate Governance", "shape": "dot", "size": 20}, {"font": {"color": "#ffffff"}, "id": "Regulation and Corporate Adaptation-keyissue", "label": "Regulation and Corporate Adaptation-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Defining Corporate Purpose-keyissue", "label": "Defining Corporate Purpose-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Cultivating Trust-keyissue", "label": "Cultivating Trust-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Governance Mechanisms-keyissue", "label": "Governance Mechanisms-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Governing Disruption-keyissue", "label": "Governing Disruption-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Meeting the Needs of Changing Populations-keyissue", "label": "Meeting the Needs of Changing Populations-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Global Governance", "label": "Global Governance", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Trade Flows and Value Chains-keyissue", "label": "Trade Flows and Value Chains-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "A Culture of Integrity-keyissue", "label": "A Culture of Integrity-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Power Shifts and Conflict-keyissue", "label": "Power Shifts and Conflict-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Mobility", "label": "Mobility", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Trade and Travel Barriers to Mobility-keyissue", "label": "Trade and Travel Barriers to Mobility-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "New Donors, Conflicting Goals-keyissue", "label": "New Donors, Conflicting Goals-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "A Breakdown in Trust-keyissue", "label": "A Breakdown in Trust-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Supply Chains", "label": "Supply Chains", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Diffusion of Power-keyissue", "label": "Diffusion of Power-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Retail, Consumer Goods and Lifestyle", "label": "Retail, Consumer Goods and Lifestyle", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "The Global Luxury Market-keyissue", "label": "The Global Luxury Market-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Global Middle Class Consumers-keyissue", "label": "Global Middle Class Consumers-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Decoupling Growth from Resource Use-keyissue", "label": "Decoupling Growth from Resource Use-keyissue", "shape": "dot", "size": 10}, {"font": {"color": "#ffffff"}, "id": "Geostrategic Competition and Security-keyissue", "label": "Geostrategic Competition and Security-keyissue", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "Weaponizing Interdependence-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Long-Term Vision, Short-Term Needs-keyissue", "to": "Banking and Capital Markets", "weight": 1}, {"from": "Long-Term Vision, Short-Term Needs-keyissue", "to": "Corruption", "weight": 1}, {"from": "Long-Term Vision, Short-Term Needs-keyissue", "to": "Institutional Investors", "weight": 1}, {"from": "Long-Term Vision, Short-Term Needs-keyissue", "to": "Future of the Environment", "weight": 1}, {"from": "Banking and Capital Markets", "to": "Banking and Market Demand Shifts-keyissue", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Insurance", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Financial and Monetary Systems", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Civic Participation", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Banking and Capital Markets", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Corruption", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "Development Finance", "weight": 1}, {"from": "Corporate Risk Management-keyissue", "to": "International Security", "weight": 1}, {"from": "Insurance", "to": "Insurtech-keyissue", "weight": 1}, {"from": "Thematic Investment-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Corporate Governance", "to": "Long-Term Vision, Short-Term Needs-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Regulation and Corporate Adaptation-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Defining Corporate Purpose-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Cultivating Trust-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Governance Mechanisms-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Corporate Risk Management-keyissue", "weight": 1}, {"from": "Corporate Governance", "to": "Governing Disruption-keyissue", "weight": 1}, {"from": "Financial and Monetary Systems", "to": "Meeting the Needs of Changing Populations-keyissue", "weight": 1}, {"from": "Regulation and Corporate Adaptation-keyissue", "to": "Institutional Investors", "weight": 1}, {"from": "Regulation and Corporate Adaptation-keyissue", "to": "Financial and Monetary Systems", "weight": 1}, {"from": "Regulation and Corporate Adaptation-keyissue", "to": "Global Governance", "weight": 1}, {"from": "Trade Flows and Value Chains-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Corruption", "to": "A Culture of Integrity-keyissue", "weight": 1}, {"from": "A Culture of Integrity-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Global Governance", "to": "Power Shifts and Conflict-keyissue", "weight": 1}, {"from": "Global Governance", "to": "Weaponizing Interdependence-keyissue", "weight": 1}, {"from": "Power Shifts and Conflict-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Governing Disruption-keyissue", "to": "Mobility", "weight": 1}, {"from": "Governing Disruption-keyissue", "to": "Institutional Investors", "weight": 1}, {"from": "Mobility", "to": "Trade and Travel Barriers to Mobility-keyissue", "weight": 1}, {"from": "Development Finance", "to": "New Donors, Conflicting Goals-keyissue", "weight": 1}, {"from": "New Donors, Conflicting Goals-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Institutional Investors", "to": "Thematic Investment-keyissue", "weight": 1}, {"from": "Governance Mechanisms-keyissue", "to": "Institutional Investors", "weight": 1}, {"from": "Governance Mechanisms-keyissue", "to": "Insurance", "weight": 1}, {"from": "Governance Mechanisms-keyissue", "to": "Civic Participation", "weight": 1}, {"from": "Governance Mechanisms-keyissue", "to": "Future of the Environment", "weight": 1}, {"from": "Civic Participation", "to": "A Breakdown in Trust-keyissue", "weight": 1}, {"from": "Supply Chains", "to": "Trade Flows and Value Chains-keyissue", "weight": 1}, {"from": "Diffusion of Power-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Retail, Consumer Goods and Lifestyle", "to": "The Global Luxury Market-keyissue", "weight": 1}, {"from": "Retail, Consumer Goods and Lifestyle", "to": "Global Middle Class Consumers-keyissue", "weight": 1}, {"from": "The Global Luxury Market-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Defining Corporate Purpose-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Defining Corporate Purpose-keyissue", "to": "Institutional Investors", "weight": 1}, {"from": "Defining Corporate Purpose-keyissue", "to": "Financial and Monetary Systems", "weight": 1}, {"from": "Defining Corporate Purpose-keyissue", "to": "Supply Chains", "weight": 1}, {"from": "Cultivating Trust-keyissue", "to": "Civic Participation", "weight": 1}, {"from": "Cultivating Trust-keyissue", "to": "Future of the Environment", "weight": 1}, {"from": "Cultivating Trust-keyissue", "to": "Retail, Consumer Goods and Lifestyle", "weight": 1}, {"from": "A Breakdown in Trust-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Future of the Environment", "to": "Decoupling Growth from Resource Use-keyissue", "weight": 1}, {"from": "Trade and Travel Barriers to Mobility-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "International Security", "to": "Diffusion of Power-keyissue", "weight": 1}, {"from": "International Security", "to": "Geostrategic Competition and Security-keyissue", "weight": 1}, {"from": "Insurtech-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Decoupling Growth from Resource Use-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Geostrategic Competition and Security-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Banking and Market Demand Shifts-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Meeting the Needs of Changing Populations-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}, {"from": "Global Middle Class Consumers-keyissue", "to": "Emerging-Market Multinationals", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.33,
+            "damping": 0.35,
+            "nodeDistance": 420,
+            "springConstant": 0,
+            "springLength": 110
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
